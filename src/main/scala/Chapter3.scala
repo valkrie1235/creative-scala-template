@@ -24,7 +24,7 @@ object Chapter3 {
     //Width of a Circle
     val threeCircles = (circle(10) beside circle(10) beside circle(10))
     val WidthofCircle= (threeCircles on  circle(30))
-    //WidthofCircle.draw
+    WidthofCircle.draw
 
     //EvilEye
     val outerIris = circle(100) fillColor(Color.darkBlue)

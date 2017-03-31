@@ -13,3 +13,35 @@ class 6 - algebraic data types and flat maps
 
 
 
+JVM, java code, fairly old language, java compiles into a byte code, other languages can run on JVM without java, you can access all of the stuff on the JVM, interfaces, drivers, etc
+
+hybrid object oriented and functional language. compiles to 3 different platforms, (object functional)
+
+scala compiles to java script now
+
+SBT, simple build tool. Scala Built tool
+- building, running, packaging up scala projects, including dependencies.
+- build.sbt tells SBT what to do, basically scala code
+
+IntelliJ + SBT need to add the SBT plugin
+
+Questions:
+Functional programming, love of static reasoning, vs object oriented, interested in the actual dynamic of how their program runs
+What is an expression
+
+can we use a name anywhere we could use an equivalent expression?
+
+is there any way this could not be the case
+
+is on associative, no
+
+is on commutative, no
+
+is there an identity for 'on'
+
+is there a fancy math word for things that have the same property
+
+
+
+______
+excercise
