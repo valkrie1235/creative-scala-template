@@ -52,7 +52,7 @@ object Chapter3 {
     val pole = rectangle(10,25) fillColor(Color.white)
 
     val targetStand = (ground below stand below pole below target)
-    //targetStand.draw
+    targetStand.draw
 
   }
 
