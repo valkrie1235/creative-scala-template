@@ -42,17 +42,19 @@ object Chapter3 {
     //colorPyramid.draw
 
     //target
-    val eightRing = circle(40) fillColor(Color.red)
-    val nineRing = circle(25) fillColor(Color.white)
-    val tenRing = circle(10) fillColor(Color.red)
-    val target = (tenRing on nineRing on eightRing)
+    object targetStand {
+      val eightRing = circle(40) fillColor (Color.red)
+      val nineRing = circle(25) fillColor (Color.white)
+      val tenRing = circle(10) fillColor (Color.red)
+      val target = (tenRing on nineRing on eightRing)
 
-    val ground = rectangle(100,30) fillColor(Color.green)
-    val stand = rectangle(25,10) fillColor(Color.brown)
-    val pole = rectangle(10,25) fillColor(Color.white)
+      val ground = rectangle(100, 30) fillColor (Color.green)
+      val stand = rectangle(25, 10) fillColor (Color.brown)
+      val pole = rectangle(10, 25) fillColor (Color.white)
 
-    val targetStand = (ground below stand below pole below target)
-    //targetStand.draw
+      val targetStand = (ground below stand below pole below target)
+    }
+    //targetStand.targetStand.draw
 
   }
 
