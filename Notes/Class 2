@@ -1,0 +1,41 @@
+Put good messages in your commit - noel i using them to see how things are going
+
+Style -> use camel case
+
+how many objects in a given file in scala:
+- good practice to do one object per file
+- object/file names should start with upper case
+- package files are lower case
+
+scala has the concept of the component object
+
+lexical scoping - changes availability of names, program text determines what is available
+
+shadowing - using the same variable name in different elements of scope,
+
+val - cannot change value
+var - can then go reassign, typically don't use var, breaks substitution
+
+why do people like substitution
+- reasona bout system in isolation, nothing can change the meaning/framing of the program
+
+local reasoning - think about just the code youre looking at, without understanding the whole system
+
+Abstraction - taking different things and making them the same (making details irrelevent)
+naming is one form of abstraction, its a way of abtracting over an expression
+
+substitution
+
+what is the substitution model of evaluation?
+represent a evaluation by a name or a value, whenever there is a name, substitute the value
+replace an expression with its value or replace an expression with the value it evaluates to
+evaluate the complicated expression, break it into sub expressions, substitute the result in
+
+how does substitution proceed (in what order in scala)?
+
+top -> bottom (evaluates scope from top to bottom)
+left to right
+
+effects - anything that has an observable change to the world in some way that will break substitution (ex. println, draw)
+- anything that has state
+
