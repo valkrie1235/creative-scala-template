@@ -39,3 +39,4 @@ left to right
 effects - anything that has an observable change to the world in some way that will break substitution (ex. println, draw)
 - anything that has state
 
+substitution also doesnt define characteristics like performance, etc

@@ -1,0 +1,81 @@
+
+class questions:
+Performance implications of using loops
+
+Layout in doodle
+
+`30.degrees`, whys is this not working?
+--not importing the correct libraries
+--30.degrees vs Angle.degrees(30)
+degrees is a method on object called angle, 30.degrees makes it easier to type
+a method on 'double' called 'degrees' that contructs an 'angle' vs method on `angle` object that contructs an `angle`
+
+sometimes .degrees is available and sometimes not. scala feature that allows us to add methods to typesusing an implicit class
+
+add methods to a typoe using implicit class also known as enrichment, have to import this implicit type into scope for methods to be available
+
+layout
+a above (b beside c)
+
+performance of recursive function calls vs loops
+ - is calling a function slower than looping?
+ - will we run out of stack?
+
+stacks
+
+def loop(n: Int): Int =
+n match {
+case 0 => 0
+case n => 1+ sum(n-1)
+ }
+
+sum(2) => 1+ (sum(1)) => 1+(1+sum(o)) => 1+(1+0)
+
+  def sum2(count:Int, accumulator:Int):Int = {
+    count match {
+      case 0=>accumulator
+      case n=>sum2 (n-1,accumulator+1)
+    }
+  }
+
+best practice when you are at risk of large recursions
+
+sum2 is 'tail recursive'
+- what is this?
+we don't need allocate on the stack, when a recursive call is made, no compounding expression that needs to take taht result and do some computation to it
+can be determined syntactically
+
+- how do we ensure something is tail recursive?
+annotation - @tailrec in front of a tail recursive method
+
+import scala.annotation.tailrec
+
+we can convert any recursive function into a tail recrusive equivalent (known as continuation passing style)
+
+mutually recursive function:
+
+def odd(n: Int): Boolean =
+n match {
+    case 1 => true
+    case n => even(n-1)
+}
+
+def even(nP: Int): Boolean = {
+    case 1 =>false
+    case n=> odd(n-1)
+}
+
+not recognized as recursive.
+
+tail recursion well recognized in functional programming world for a long time
+
+- limitations to tail recursion?
+
+scala, at least on JVM, doesnt support mutualy recurisve calls, only self tail recursion
+
+- performance characteristics?
+
+a tail call is compiled into a loop and is just as fast as in scala
+
+there are while loops in scala, tail recursive loop is general looping structure
+
