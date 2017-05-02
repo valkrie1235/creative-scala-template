@@ -75,7 +75,7 @@ object Chapter8 {
       loop(samples)
     }
 
-      val flowerTest = flower(0.degrees, 200, 1, 5,200, Color.purple, rose(_, _,_), colored(circle(_), gradient(_,_)))
+      val flowerTest = flower(0.degrees, 200, 1, 5,200, Color.purple, rose (_, _,_) , colored(circle(_), gradient(_,_)))
       val flowerTest4 = flower(25.degrees, 200, 1, 8,400, Color.blue, rose(_, _,_), colored(circle(_), fade(_,_)))
 
 

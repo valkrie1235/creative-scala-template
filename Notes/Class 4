@@ -1,0 +1,43 @@
+what are values, objects, functions, etc
+
+expressions evaluate to values
+
+values are things that live in the computers memory, that hav emeaning: locations in the computers memory, things that you can process
+1+2 evaulates to 3
+1.+(2) (its actually a mthod of one that is adding a value)
+
+
+first class values
+- when you can pass it to a method, return it from a method, or give it a name with a 'val'
+- can't pass a method too a method, can't return a method to a method, methods are NOT first class
+- allows us to more clearly define hierarchical set of fucntions- absttraction
+- composition
+
+functions return as functions, in the rose function, set it once will return a function
+
+
+method allows us to pull parts of an expression
+
+why cant we just use methods as functions?
+- historical baggage
+- performance implications for making everything a method
+
+what if ints were not first class
+
+What is an object?
+- in scalal all values are objects
+an object is somethign with methods (and fields, but scala hides the differnce)
+
+what is a method?
+- reusable generalization of expressions
+
+what is a function?
+- a first class method
+an object with a method called 'apply' and also inhereting from one of the function types
+
+
+underscore syntax
+
+currying is a function of multiple arguments to one of single arguments (foo2_).curried
+
+
