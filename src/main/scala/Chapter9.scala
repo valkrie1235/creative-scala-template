@@ -140,4 +140,81 @@ object Chapter9 {
       closedPath(moveTo(polar(100.0,initialAngle)) :: loop(sides,initialAngle,sides))
     }
 
+  object ranges {
+
+    def ones(length:Int):List[Int] ={
+      (0 until length).map(x=>1).toList
+    }
+
+    def descending(startingVal:Int):List[Int] ={
+      (0 until startingVal).map(x=>startingVal-x).toList
+    }
+
+
+    def ascending(startingVal:Int):List[Int] ={
+      (startingVal until 0 by -1).map(x=>startingVal-(x-1)).toList
+    }
+
+    def double(list:List[Int]):List[Int] ={
+      list.map(x=>x*2)
+    }
+
+    def polygon(sides: Int, radius: Double, initialAngle: Angle): Image = {
+      val increment = 360 / sides
+
+      def loop(sides: Int, radius: Double, initialAngle:Angle): List[PathElement] = {
+        (0 until sides).map(x=>lineTo(polar(radius, initialAngle+(increment*x).degrees))).toList
+        }
+      closedPath(moveTo(polar(radius,initialAngle)) :: loop(sides,radius,initialAngle))
+    }
+
+    def ascendingOpenInterval(startingVal:Int):List[Int] ={
+      (startingVal to 1 by -1).map(x=>startingVal-(x-1)).toList
+    }
+
+  }
+
+  def star(p:Int, n:Int,radius: Double): Image = {
+    val increment = (Angle.one/ p)*n
+
+
+    def loop(p: Int, n: Int, radius: Double): List[PathElement] = {
+      (0 until p).map(x => lineTo(polar(radius,(increment * x)))).toList
+    }
+
+    closedPath(moveTo(polar(radius, 0.degrees)) :: loop(p, n, radius))
+  }
+
+  def allBeside(images: List[Image]): Image ={
+    images match {
+      case Nil =>Image.empty
+      case hd :: tl => hd.beside(allBeside(tl))
+    }
+  }
+
+  def allAbove(images: List[Image]): Image ={
+    images match {
+      case Nil =>Image.empty
+      case hd :: tl => hd.above(allAbove(tl))
+    }
+  }
+
+  val allAboveTest = allAbove(
+    (1 to 5).toList map {skip => star(11,skip,100)
+    }
+  )
+
+  val largerImage = allAbove(
+    (3 to 11 by 2).toList map {points =>
+
+      allBeside(
+        (1 to points-2 by 2).toList map { skip =>
+        star(points,skip,100)
+        }
+      )
+  }
+  )
+
+
+
 }
