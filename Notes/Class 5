@@ -1,0 +1,62 @@
+Nil vs Null vs None
+
+Nil <- empty list
+
+None <- empty option
+option is a type in scala, indicates a collection that has 0 or 1 elements (may have a value or may not have a value)
+option is an algebraic data type
+
+Null <- when we have a reference that doesn't point to a value
+most of the time we pass around the address of where something lives in memory, lurking aroundi n scala cause we are compatible with JAVA
+
+
+List/ Range/ Seq/ Option
+
+List <- sequence of elements, singly linked list, recursive structure, can do recursion over them, is a seq
+logical ands and logical ors
+- a nutural number n is 0 or 1+N where n is a natural number
+A list of A is the empty list Nil or the pair of A AND a list of A
+Range <- Sequence of regular and ordered numbers. no rescurisve structure, is a seq
+Seq <- interface for sequences
+Option <-
+
+
+open vs closed vs  half open range
+
+do use the indirection of indices when you dont have to
+- use map ,use structural recursion, use tiools like filter/fold/take/drop/etc
+- if something has length 4 (0,1,2,3) <---zero based indexing (0 until 4) or (0 until length)
+ half opn interval - include the start but not the end
+
+any and allowable inputs
+- type systems, what do they do, why do we have them?
+- partial vs total functions
+ all the inputs leads to outputs
+ partial functions
+- run time vs compile time checks
+-- as  you add more and more compile time safety, code can become harder to work with
+-- also adds compile time
+
+
+
+Reverse
+
+go beyond
+
+create random circles inside a circle
+
+we're going to use 'map' and anew tool, 'flatmap' in a different contex. the idea is to broadn how we think about these tools
+
+Random[A] flatMap (A => Random
+
+- how could we create a point that is randomly within a circle
+- - random angle, random bounded radius
+
+use the following methods to create a random number
+
+now implement yourmethod to create a point
+finally call the 'run' method and you shoudl get a 'point'
+
+step 2
+
+given a random point, transform it into a random circle
