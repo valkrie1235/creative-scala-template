@@ -4,9 +4,6 @@
 
 import com.sun.org.apache.xpath.internal.operations
 import com.sun.org.apache.xpath.internal.operations.And
-import doodle.core.Point._
-import doodle.core.PathElement._
-import doodle.core.Color
 import doodle.core._
 import doodle.core.Image._
 import doodle.syntax._
@@ -59,28 +56,29 @@ object Chapter10 {
     i match {
       case Forward(_)=>List(forward(stepSize),forward(stepSize))
       case NoOp =>
-        List(branch(turn(45.degrees),forward(stepSize),noop),branch(turn((-45).degrees),forward(stepSize),noop))
+        List(branch(turn(45.degrees),forward(stepSize),NoOp),branch(turn((-45).degrees),forward(stepSize),NoOp))
       case other => List(other)
 
     }
   }
 
   def rewrite(instructions: List[Instruction],rule :Instruction => List[Instruction]):List[Instruction] = {
-    instructions.flatMap(a=>rule(a))
+
+    instructions match {
+      case List(Branch(_))=> List(branch(instructions.flatMap(a=>rule(a)):_*))
+      case other => other.flatMap(a => rule(a))
+    }
+
   }
 
-/*  def iterate(steps:Int,seed: List[Instruction],rule :Instruction => List[Instruction]):List[Instruction] ={
+ def iterate(steps:Int,seed: List[Instruction],rule :Instruction => List[Instruction]):List[Instruction] = {
+    steps match {
+      case 0 => seed
+      case n => iterate(n-1,rewrite(seed,rule),rule)
+  }
+ }
 
-    def loop(steps:Int,seed: List[Instruction],rule :Instruction => List[Instruction],counter: Int):List[Instruction] ={
-      counter match {
-        case 0 => Nil
-        case n => seed.flatMap(a => loop(steps,a,rule,n-1))
-      }
-      }
-    loop(steps,seed,rule,steps)
-    }*/
-
-  val testDraw = iterate(5,seed,rule)
+  val testDraw = iterate(3,seed,rule)
 
   /*
 
