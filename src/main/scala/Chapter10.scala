@@ -9,6 +9,8 @@ import doodle.core.Image._
 import doodle.syntax._
 import doodle.jvm.Java2DCanvas._
 import doodle.backend.StandardInterpreter._
+import doodle.core.PathElement.{lineTo, moveTo}
+import doodle.core.Point.polar
 import doodle.turtle._
 import doodle.turtle.Instruction._
 
@@ -49,8 +51,9 @@ object Chapter10 {
     list.flatMap(a => Nil)
   }
 
-  val stepSize = 100
+  val stepSize = 10
   val seed = List(forward(100),NoOp)
+  val seedEmpty = List(NoOp)
 
   def rule(i: Instruction): List[Instruction] = {
     i match {
@@ -62,14 +65,42 @@ object Chapter10 {
     }
   }
 
+  def ruleKoch(i: Instruction): List[Instruction] = {
+    i match {
+      case Forward(_)=>List(forward(stepSize),turn(45.degrees),forward(stepSize),turn((-90).degrees),forward(stepSize),turn(45.degrees),forward(stepSize))
+      case other => List(other)
+
+    }
+  }
+
+  def ruleLeaf(i: Instruction): List[Instruction] = {
+    i match {
+      case Forward(_)=>List(forward(stepSize),branch(turn(30.degrees),forward(stepSize)),branch(turn((-30).degrees),forward(stepSize)),forward(stepSize))
+      case other => List(other)
+
+    }
+  }
+
+  def ruleCrosses(i: Instruction): List[Instruction] = {
+    i match {
+      case Forward(_) => List(forward(stepSize), forward(stepSize))
+      case NoOp =>
+        List(branch(forward(stepSize), NoOp), branch(turn(90.degrees), forward(stepSize), NoOp), branch(turn(180.degrees), forward(stepSize), NoOp), branch(turn((-90).degrees), forward(stepSize), NoOp))
+      case other => List(other)
+
+    }
+  }
+
+
   def rewrite(instructions: List[Instruction],rule :Instruction => List[Instruction]):List[Instruction] = {
 
-    instructions match {
-      case List(Branch(_))=> List(branch(instructions.flatMap(a=>rule(a)):_*))
-      case other => other.flatMap(a => rule(a))
+    instructions.flatMap {
+      x => x match {
+        case Branch(x) => List(branch(rewrite(x, rule): _*))
+        case other => rule(other)
+      }
     }
-
-  }
+   }
 
  def iterate(steps:Int,seed: List[Instruction],rule :Instruction => List[Instruction]):List[Instruction] = {
     steps match {
@@ -78,17 +109,56 @@ object Chapter10 {
   }
  }
 
-  val testDraw = iterate(3,seed,rule)
+  def polygonFlat(sides: Int, sideLength: Double): Image = {
+    val angle = (360/sides).degrees
 
-  /*
+    Turtle.draw((0 until sides).toList.flatMap{x => List(turn(angle),forward(sideLength))})
 
-    val circle:Random[Point] =
-      angle flatMap { a =>
-        radius map { r =>
-          Point.polar(r,a):Point
+  }
 
-        }:Random[Point]
-      }*/
+
+  def spiralCircleFlat(maxSize: Double, angleIncrement: Angle, numTurns:Int): Image = {
+    val sideLengthIncrement = maxSize/(numTurns*4)
+    print(sideLengthIncrement)
+
+    Turtle.draw (
+      (0 until numTurns).toList.flatMap(x =>
+        List(forward(sideLengthIncrement*x),turn(90.degrees+angleIncrement) )
+      )
+    )
+
+  }
+
+
+  def nautilus(maxSize: Double, numTurns:Int): Image = {
+    val sideLengthIncrement = maxSize/numTurns
+    val angleIncrement = Angle.one/numTurns
+
+
+    def longSide(iter:Int):Double = math.sqrt(
+      math.pow(sideLengthIncrement*iter,2)
+        + math.pow(sideLengthIncrement*(iter+1),2)
+        - 2*(sideLengthIncrement*iter)*(sideLengthIncrement*(iter+1)*math.cos(math.toRadians(360/numTurns))
+        )
+    )
+
+    def longAngle(iter:Int):Double = math.asin(math.sin(math.toRadians(Angle.one.toDegrees/numTurns))/longSide(iter)*sideLengthIncrement*iter).toDegrees
+
+    Turtle.draw (
+      (0 until numTurns).toList.flatMap(x =>
+        List(
+          branch(
+            turn(angleIncrement*x),forward(sideLengthIncrement*x),turn(longAngle(x).degrees),forward(longSide(x))
+          )
+        )
+      )
+      )
+  }
+
+  val testDraw = Turtle.draw(iterate(3,seed,rule))
+  val testDrawKoch = Turtle.draw(iterate(5,seed,ruleKoch))
+  val testDrawLeaf = Turtle.draw(iterate(5,seed,ruleLeaf))
+  val testDrawCross = Turtle.draw(iterate(5,seedEmpty,ruleCrosses))
 
 
 }
