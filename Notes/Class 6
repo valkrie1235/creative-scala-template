@@ -1,0 +1,115 @@
+pattern matching
+
+match a literal, a match a wild card
+case 1
+case n
+
+match a string
+
+pattern matching, patterns for lists
+
+list is a recurisve structure,
+a list is
+-the empty list Nil OR
+-a pair (written ::) containg a head and a tail that is a List
+
+when you construct  a list, you can add things to the front of it, natural way to deconstruct is to take things off the front
+
+case head :: tail => do something(head) combineWith recurse (tail)
+
+base case
+case n => doSomething(1) combine witih recurse(n-1)
+
+case Branch(instructions) =>
+case Branch(head :: tail) =>
+
+
+case _ => anything
+
+
+L system is an example of a rewrite school system
+
+rewrite systems
+- transducers
+have input: I
+hve rule :I => Option[O], I => O
+apply rules to input to produce output
+if you make I =>I then you can just apply the rules again and again and again
+
+L system keeps adding data, never stops
+
+
+seed: List[I]
+rules: I => List[I]
+rewrite: List[I] => List[I]
+iterate: Int, Seed, rule
+iterateOnce(List[I], Instruction =>List[(Instruction]):List[Instruction]
+List[I] flatMap Instruction =>List[(Instruction]):List[Instruction]
+
+
+algebraic data types
+
+theoretical side:
+modeling data in terms of logical ANDs and logical OR
+-- Thinking about the example of a list it is a pari containg a head of type A and a
+-- option: value OR case when there is no value available
+---- some cotnaing an A or none
+---- A security is a tradable exposure or nothing
+
+a derivative is
+- futures OR
+- options OR
+- swaps OR
+- forwards
+
+
+fancy words:
+- AND is a product type (all the values of X and all the values of Y)
+- OR is a sum type (all the values of X or all the values of Y)
+---google algebraic data types, regular expressions
+
+allow for structural recursion
+- a gneric recipe to transfoorm and algebraic data type
+
+
+cartesian product
+
+craft/implementation
+
+start the definition with a "Sealed" trait
+- the root of the tree of types
+
+leaves are (final) case classes
+
+Option[A] is - some or None
+
+sealed trait Option[A]
+final case class Some[A](a:A) extends Option[A]
+final case class None[A]() extends Option[A]
+
+sealed means:
+- cannot be extended outside this file
+- compiler knows all the cases
+- compiler will warn  you if you miss a case in a pattern match
+
+final means cannot be extended
+- algebraic data types are closed
+- can tightly control sematnics but lose extensibility
+
+case class
+- you don't need to write new to contruct an instance
+- you get pattern matching for free
+- you get a few other things for free
+- should be used to hold immutable data
+
+two different types of buds, change, see another type of bud you grow something else
+
+scala.util.random.nextDouble
+random.oneOf (1,2,3,4)
+import doodle.random.
+
+google L systems
+
+list reprsents futures possibilities, flatMap one particular outcome that is reachable from that
+
+

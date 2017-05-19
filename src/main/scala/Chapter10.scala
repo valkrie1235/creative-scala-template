@@ -92,6 +92,11 @@ object Chapter10 {
   }
 
 
+  /*a little pattern for defining these things
+  algebraic data types,
+
+  */
+
   def rewrite(instructions: List[Instruction],rule :Instruction => List[Instruction]):List[Instruction] = {
 
     instructions.flatMap {
